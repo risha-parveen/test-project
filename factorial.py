@@ -1,21 +1,26 @@
-def factorial(n):
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def factorial(n: int) -> int:
     """
     Calculate the factorial of a non-negative integer n.
 
     Parameters:
-    n (int): The number to calculate the factorial for.
+    n (int): The number to calculate the factorial for. Must be a non-negative integer.
 
     Returns:
     int: The factorial of the number n.
+    
+    Raises:
+    ValueError: If n is a negative integer or not an integer.
     """
+    if not isinstance(n, int):
+        raise TypeError("n must be an integer.")
     if n < 0:
         raise ValueError("n must be a non-negative integer.")
     if n == 0:
         return 1
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
+    return n * factorial(n - 1)
 
 if __name__ == "__main__":
     # Example usage
